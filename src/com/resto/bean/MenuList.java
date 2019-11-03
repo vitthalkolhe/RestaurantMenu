@@ -10,6 +10,7 @@ public class MenuList {
 	
 	for(String s:m.getlistofmenus())
 	{
+		// Get and  Display all the Menu Items to the User
 		System.out.println(count+": "+s);
 		count++;
 	}

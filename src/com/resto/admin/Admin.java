@@ -4,14 +4,20 @@ import com.resto.bean.Menu;
 
 public class Admin {
 	
+	//Main course Menu items
 	public static String MainCourse[]={"Roti","Sabji","Daal","Rice","Salad","--Back menu--"};
+	//Starter Menu items
 	public static String Starter[]={"Papad","Soup","--Back menu--"};
+	//Dessert Menu items
 	public static String Dessert[]={"iceCream","--Back menu--"};
+	//Beverages Menu items
+	public static String Beverages[]={"Pepsi","Water","IceTea","Coffee","--Back menu--"};
+	
 	
 	public Admin()
 	{
-		
-		Menu m=new Menu(MainCourse, Starter, Dessert);
+		//Initialize the Menu object
+		Menu m=new Menu(MainCourse, Starter, Dessert,Beverages);
 	}
 	
 }

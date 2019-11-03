@@ -5,16 +5,19 @@ public class Menu {
 	String MainCourse[];
 	String Starter[];
 	String Dessert[];
-	String listofmenus[]={"Starter","MainCourse","Dessert","exit, Ask for Bill"};
+	String Beverages[];
+	String listofmenus[]={"STARTER","MAINCOURSE","DESSERT","BEVERAGES","ASK FOR A BILL"};
 	
 	public Menu()
 	{}
 	
-	public Menu(String[] mainCourse, String[] starter, String[] dessert) {
+	//Menu constructor
+	public Menu(String[] mainCourse, String[] starter, String[] dessert, String[] beverages) {
 		super();
 		this.MainCourse = mainCourse;
 		this.Starter = starter;
 		this.Dessert = dessert;
+		this.Beverages = beverages;
 		
 	}
 	public void getMainCourse() {
@@ -41,8 +44,17 @@ public class Menu {
 		}
 	}
 	
+	public void getBeverages() {
+		//return Dessert;
+		for(String s:Beverages)
+		{
+			System.out.println(s);
+		}
+	}
+	
 	public String[] getlistofmenus() {
-		return listofmenus;
+		
+		return listofmenus;  // return all the Menu items
 	}
 	
 

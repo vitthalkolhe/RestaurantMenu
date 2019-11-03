@@ -6,88 +6,97 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.resto.admin.Admin;
-import com.resto.bean.Menu;
 import com.resto.bean.MenuList;
 import com.resto.bean.Prices;
 
 public class Customer {
 	static HashMap<String,Integer> hm;
+	
+	/*
+	 * Variable Description
+	 * 
+	 * Admin adm - Used to define Menu category "Starter, MainCourse,Dessert, Beverages" with below sub category
+	 * 1) Starter -> "Papad","Soup","--Back menu--"
+	 * 2) Main course -> "Roti","Sabji","Daal","Rice","Salad","--Back menu--"
+	 * 3) Dessert -> "iceCream","--Back menu--"
+	 * 4) Beverages -> "Pepsi","Water","IceTea","Coffee","--Back menu--"
+	 * 
+	 * Prices prices -> Used to initialize menu items with respective price.
+	 * 
+	 * 
+	 * int foodChoice - Used to get and compare the user input in Main Switch case
+	 * Boolean  ordering - Used to control the main Do While loop
+	 * 
+	 * String starterChoice -  Used to get the choice of starter from user
+	 * String mainCourseChoice -  Used to get the choice of Main Course from user
+	 * String desertChoice -  Used to get the choice of dessert from user
+	 * String beveragesChoice -  Used to get the choice of beverages from user
+     *
+	 * String starterQuantity = "0"-  Used to get the quantity of starter from user
+	 * String mainCourseQuantity = "0"-  Used to get the quantity of Main Course from user
+	 * String dessertQuantity = "0"-  Used to get the quantity of dessert from user
+	 * String beveragesQuantity = "0"-  Used to get the quantity of beverages from user
+	 * 
+	 * float finall - Used to calculate the total food bill excluding 5% tax
+	 * float tax - Used to calculate the 5% tax on finall food bill
+	 * float billToBePaid - Total Bill to be paid including the tax
+	       			
+	 * */
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		System.out.println("welcome");
-		Admin a=new Admin(); //loading menus set by admin
-		Prices p=new Prices();
-		Menu m=new Menu();
+		System.out.println("-----------------------WELCOME TO JACOB's KITCHEN------------------------");
+		Prices prices=new Prices();
 		Admin adm=new Admin();
 		
 		hm=new HashMap<String,Integer>();
 		
 		 boolean ordering = true;
-		System.out.println("Please select menu");
-		int count=1;
+		System.out.println("Please select a menu from list");
 do{
+	//Get the list of Menu's
 		MenuList.getMenu();
 		
+		//Get a user input for Menu item selection
 		  BufferedReader reader =new BufferedReader(new InputStreamReader(System.in));
-		  String name = reader.readLine();
-		  int inte=Integer.parseInt(name);	
+		  String foodChoice = reader.readLine();
+		  int foodChoice_Int=Integer.parseInt(foodChoice);	
 	        //System.out.println(name); 
 	        
-	        switch (inte) { 
+	        switch (foodChoice_Int) { 
+	        //Case specific to Starter Menu items 
 	        case 1: 
 	        	 int startcount=1;
 	        	for(String aamhi:adm.Starter)
 	        	{
-	        		System.out.println(startcount+": "+aamhi+" "+p.returnValue(aamhi));
+	        		//Disply all the items from the Starter
+	        		System.out.println(startcount+": "+aamhi+" "+prices.returnValue(aamhi));
 	        	startcount++;
 	        	}
 	        	
-	        	String z;
-	        							String y = reader.readLine();
-	        							//System.out.println("y is"+y);
-	        							if(y.equals("1")||y.equals("2"))
+	        	String starterQuantity = "0";
+	        							String starterChoice = reader.readLine();
+	        							if(starterChoice.equals("1")||starterChoice.equals("2"))
 	        							{
 	        							System.out.println("Enter quantity");
-	        							 z = reader.readLine();
-	        							 hm.put(adm.Starter[Integer.parseInt(y)-1], Integer.parseInt(z));
+	        							starterQuantity = reader.readLine();
+	        							 hm.put(adm.Starter[Integer.parseInt(starterChoice)-1], Integer.parseInt(starterQuantity));
 	        							}
-	        							else 
-	        							{
-	        								z="4";
-	        							}
-	        							int zz=Integer.parseInt(z);
-	        							int yy=Integer.parseInt(y);
-	        							//star=new HashMap<String,Integer>();
 	        							
-	        							//System.out.println("Donee23"+adm.Starter[yy-1]);
-	        							//System.out.println("Donee32"+zz);
-	        							
-	        							//hm.put("L&TT", 110);
-	        						/*	for (Map.Entry<String,Integer> entry : hm.entrySet()) 
-	        				        	 {
-	        				        		 System.out.println("YOO");
-	        				                 System.out.println("Key = " + entry.getKey() +", Value = " + entry.getValue()); 
-	        				        	 }*/
+	        							int starterQuantity_Int=Integer.parseInt(starterQuantity);
+	        							int starterChoice_Int=Integer.parseInt(starterChoice);
 							        	boolean orderingstart=true;;
 										do{
-							        	switch(yy){
-							        	  // If y == 2 
+							        	switch(starterChoice_Int){
 							            case 1: 
-							               System.out.println("you've ordered: "+adm.Starter[yy-1]+" with quantity: "+zz);
+							               System.out.println("you've ordered: "+adm.Starter[starterChoice_Int-1]+" with quantity: "+starterQuantity_Int);
 							               orderingstart=false;
 							                break; 
 							      
-							            // If y == 3 
 							            case 2: 
-							            	System.out.println("you've ordered "+adm.Starter[yy-1]+" with quantity: "+zz);
+							            	System.out.println("you've ordered "+adm.Starter[starterChoice_Int-1]+" with quantity: "+starterQuantity_Int);
 							            	 orderingstart=false;
 							                break;
 							                
-							            case 3: 
-							            	//System.out.println("you've ordered "+adm.Starter[yy-1]);
-							            	System.out.println("Wrong selection please select again");
-							            	 orderingstart=false;
-							                break;
+							            
 							       
 							            default: 
 								        	 System.out.println("Wrong selection please select again");
@@ -98,70 +107,64 @@ do{
 	        	
 	        	
 	            break; 
+	            //Case specific to Main course Menu items 
 	        case 2: 
 	       
 	        	 int startcount1=1;
-		        	for(String saare:adm.MainCourse)
+		        	for(String mainCourse:adm.MainCourse)
 		        	{
-		        		System.out.println(startcount1+": "+saare+" "+p.returnValue(saare));
+		        		//Display all the items from Main Course
+		        		System.out.println(startcount1+": "+mainCourse+" "+prices.returnValue(mainCourse));
 		        	startcount1++;
 		        	}
 	        	
-	        	String z1;
-				String y1 = reader.readLine();
+	        	String mainCourseQuantity= "0";
+				String mainCourseChoice = reader.readLine();
 				//System.out.println("y is"+y1);
-				if(y1.equals("1")||y1.equals("2")|| y1.equals("3")||y1.equals("4")||y1.equals("5"))
+				if(mainCourseChoice.equals("1")||mainCourseChoice.equals("2")|| mainCourseChoice.equals("3")||mainCourseChoice.equals("4")||mainCourseChoice.equals("5"))
 				{
 				System.out.println("Enter quantity");
-				 z1 = reader.readLine();
-				 hm.put(adm.MainCourse[Integer.parseInt(y1)-1], Integer.parseInt(z1));
+				mainCourseQuantity = reader.readLine();
+				 hm.put(adm.MainCourse[Integer.parseInt(mainCourseChoice)-1], Integer.parseInt(mainCourseQuantity));
 				}
-				else 
-				{
-					z1="4";
-				}
-				int zz1=Integer.parseInt(z1);
-				int yy1=Integer.parseInt(y1);
+				
+				int mainCourseQuantity_Int=Integer.parseInt(mainCourseQuantity);
+				int mainCourseChoice_Int=Integer.parseInt(mainCourseChoice);
 									        	boolean orderingstart1=true;;
 												do{
-									        	switch(yy1){
+									        	switch(mainCourseChoice_Int){
 									        	  // If y == 2 
 									            case 1: 
-									               System.out.println("you've ordered: "+adm.MainCourse[yy1-1]+" with quantity: "+zz1);
+									               System.out.println("you've ordered: "+adm.MainCourse[mainCourseChoice_Int-1]+" with quantity: "+mainCourseQuantity_Int);
 									               orderingstart1=false;
 									                break; 
 									      
 									            // If y == 3 
 									            case 2: 
-									            	System.out.println("you've ordered "+adm.MainCourse[yy1-1]+" with quantity: "+zz1);
+									            	System.out.println("you've ordered "+adm.MainCourse[mainCourseChoice_Int-1]+" with quantity: "+mainCourseQuantity_Int);
 									            	 orderingstart1=false;
 									                break;
 									                
 									            case 3: 
-									            	//System.out.println("you've ordered "+adm.Starter[yy-1]);
-									            	System.out.println("you've ordered "+adm.MainCourse[yy1-1]+" with quantity: "+zz1);
+									            	System.out.println("you've ordered "+adm.MainCourse[mainCourseChoice_Int-1]+" with quantity: "+mainCourseQuantity_Int);
 									            	 orderingstart1=false;
 									                break;
 									                
 									            case 4: 
-									            	//System.out.println("you've ordered "+adm.Starter[yy-1]);
-									            	System.out.println("you've ordered "+adm.MainCourse[yy1-1]+" with quantity: "+zz1);
+									            	System.out.println("you've ordered "+adm.MainCourse[mainCourseChoice_Int-1]+" with quantity: "+mainCourseQuantity_Int);
 									            	 orderingstart1=false;
 									                break;   
 									                
 									            case 5: 
-									            	//System.out.println("you've ordered "+adm.Starter[yy-1]);
-									            	System.out.println("you've ordered "+adm.MainCourse[yy1-1]+" with quantity: "+zz1);
+									            	System.out.println("you've ordered "+adm.MainCourse[mainCourseChoice_Int-1]+" with quantity: "+mainCourseQuantity_Int);
 									            	 orderingstart1=false;
 									                break;     
 									                
 									            case 6: 
-									            	//System.out.println("you've ordered "+adm.Starter[yy-1]);
-									            	//System.out.println("you've ordered "+adm.MainCourse[yy1-1]+" with quantity: "+zz1);
 									            	 orderingstart1=false;
 									                break;     
 									         
-									       
+									       //In case of wrong selection
 									            default: 
 										        	 System.out.println("Wrong selection please select again");
 										        	 orderingstart1=false;
@@ -169,45 +172,38 @@ do{
 									        	}}while(orderingstart1);
 	        					
 	            break; 
+	            //Case specific to Desert Menu items 
 	        case 3: 
 	        	
 	        	 int startcount11=1;
-		        	for(String khavaiyye:adm.Dessert)
+		        	for(String dessert:adm.Dessert)
 		        	{
-		        		System.out.println(startcount11+": "+khavaiyye+" "+p.returnValue(khavaiyye));
+		        		//Display all the items from desert
+		        		System.out.println(startcount11+": "+dessert+" "+prices.returnValue(dessert));
 		        	startcount11++;
 		        	}
 	        	
-								        	String z11;
-											String y11 = reader.readLine();
+								        	String desertQuantity = "0";
+											String desertChoice = reader.readLine();
 											//System.out.println("y is"+y11);
-											if(y11.equals("1"))
+											if(desertChoice.equals("1"))
 											{
 											System.out.println("Enter quantity");
-											 z11 = reader.readLine();
-											 hm.put(adm.Dessert[Integer.parseInt(y11)-1], Integer.parseInt(z11));
+											desertQuantity = reader.readLine();
+											 hm.put(adm.Dessert[Integer.parseInt(desertChoice)-1], Integer.parseInt(desertQuantity));
 											}
-											else 
-											{
-												z11="4";
-											}
-											int zz11=Integer.parseInt(z11);
-											int yy11=Integer.parseInt(y11);
+											
+											int desertQuantity_Int=Integer.parseInt(desertQuantity);
+											int desertChoice_Int=Integer.parseInt(desertChoice);
 								        	boolean orderingstart11=true;;
 											do{
-								        	switch(yy11){
-								        	  // If y == 2 
+								        	switch(desertChoice_Int){
 								            case 1: 
-								               System.out.println("you've ordered: "+adm.Dessert[yy11-1]+" with quantity: "+zz11);
+								               System.out.println("you've ordered: "+adm.Dessert[desertChoice_Int-1]+" with quantity: "+desertQuantity_Int);
 								               orderingstart11=false;
 								                break; 
 								      
-								            // If y == 3 
-								            
-								                
 								            case 2: 
-								            	//System.out.println("you've ordered "+adm.Starter[yy-1]);
-								            	//System.out.println("you've ordered "+adm.MainCourse[yy1-1]+" with quantity: "+zz1);
 								            	 orderingstart11=false;
 								                break;     
 								         
@@ -219,39 +215,95 @@ do{
 								        	}}while(orderingstart11);
 	        	
 	            break; 
+	            
+	            //Case specific to Beverages Menu items 
 	        case 4: 
-	        	//System.out.println("hoiiiiiiiiiiiii");
-	        	//hm.forEach((key,value)-> System.out.print(key,value));
-	        	//hm.put("shreyas", 10);
-	        	//hm.put("sdff", 10);
-	        	//System.out.println("hmm");
+	        	 int startcount4=1;
+	        	for(String beverage:adm.Beverages)
+	        	{
+	        		//Display all the items from Beverages
+	        		System.out.println(startcount4+": "+beverage+" "+prices.returnValue(beverage));
+	        	startcount4++;
+	        	}
 	        	
-	    //   Integer[] arr=new Integer[hm.size()];
+	        	String beveragesQuantity = "0";
+	        							String beveragesChoice = reader.readLine();
+	        							if(beveragesChoice.equals("1")||beveragesChoice.equals("2") || beveragesChoice.equals("3")||beveragesChoice.equals("4"))
+	        							{
+	        							System.out.println("Enter quantity");
+	        							beveragesQuantity = reader.readLine();
+	        							 hm.put(adm.Beverages[Integer.parseInt(beveragesChoice)-1], Integer.parseInt(beveragesQuantity));
+	        							}
+	        							
+	        							int beveragesQuantity_Int=Integer.parseInt(beveragesQuantity);
+	        							int beveragesChoice_Int=Integer.parseInt(beveragesChoice);
+	        							
+							        	boolean orderingBeverages=true;;
+										do{
+							        	switch(beveragesChoice_Int){
+							            case 1: 
+							               System.out.println("you've ordered: "+adm.Beverages[beveragesChoice_Int-1]+" with quantity: "+beveragesQuantity_Int);
+							               orderingBeverages=false;
+							                break; 
+							      
+							            case 2: 
+							            	System.out.println("you've ordered "+adm.Beverages[beveragesChoice_Int-1]+" with quantity: "+beveragesQuantity_Int);
+							            	orderingBeverages=false;
+							                break;
+							            case 3: 
+							            	System.out.println("you've ordered "+adm.Beverages[beveragesChoice_Int-1]+" with quantity: "+beveragesQuantity_Int);
+							            	orderingBeverages=false;
+							                break;
+							            case 4: 
+							            	System.out.println("you've ordered "+adm.Beverages[beveragesChoice_Int-1]+" with quantity: "+beveragesQuantity_Int);
+							            	orderingBeverages=false;
+							                break;
+							                
+							            							       
+							            default: 
+								        	 System.out.println("Wrong selection please select again");
+								        	 orderingBeverages=false;
+								            break; 
+							        	}}while(orderingBeverages);
+							        		
+	        	
+	        	
+	            break; 
+	       
+	            //Ask for the final bill
+	       case 5: 
 	       int total=0;
 	       int qnt=0;
-	       int finall=0;
+	       float finall=0;
+	       float tax=0;
+	       float billToBePaid=0;
 	       			
 	       			
-	        	
+	        	//Calculate the total bill amount excluding tax
 	        	 for (Map.Entry<String,Integer> entry : hm.entrySet()) 
 	        	 {
-	        		 //System.out.println("YOO");
-	        		 total=total+p.returnValue(entry.getKey());
+	        		 total=total+prices.returnValue(entry.getKey());
 	        		 qnt=entry.getValue();
-	        		// System.out.println("VALUEEEEEEEEEE          "+p.returnValue(entry.getKey()));
 	                 System.out.println("Menu: " + entry.getKey() +", Quantity = " + entry.getValue()+", total "+total*qnt); 
 	                 finall=finall+(total*qnt);
 	                 total=0;
 	        	 }
 	        	 
-	        	 System.out.println("FINAL bill Amount is ------:: "+finall);
+	        	 //Calculate the tax which is 5% of total food bill
+	        	 tax = (finall*5)/100;
+	        	 
+	        	 //Final bill amount including tax
+	        	 billToBePaid= tax+finall;
+	        	 System.out.println("Total bill Amount excluding tax is ------:: "+finall);
+	        	 System.out.println("Tax to be added (5%)------:: "+tax);
+	        	 System.out.println("Final bill amount is ------:: "+billToBePaid);
 	        	
 	        	 ordering = false;
 	            break; 
-	            
+	           
+	            //Wrong selection
 	        default: 
 	        	 System.out.println("Wrong selection please select again");
-	        	 MenuList.getMenu();
 	            break; 
 	        }   
 }while (ordering);
